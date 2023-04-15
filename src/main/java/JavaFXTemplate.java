@@ -15,7 +15,8 @@ import java.util.ArrayList;
 public class JavaFXTemplate extends Application {
 	private static ArrayList<ToggleButton> selectNumbers = new ArrayList<>();
 	Stage window;
-	Scene scene1, scene2, scene3, scene5,currentScene;
+	Scene scene1, scene2,currentScene;
+	Server serverConnection;
 	//public static TextArea t2;
 	public static Stage stage;
 	public static void main(String[] args) {
@@ -61,12 +62,18 @@ public class JavaFXTemplate extends Application {
 		IPAddy.setText("CHOOSE STATE OF SERVER");
 		turnon.setText("TURN ON");
 		turnoff.setText("TURN OFF");
+		turnon.setOnAction(e -> ServerThread.serverPlaye("on"));
+		turnoff.setOnAction(e -> ServerThread.serverPlaye("off"));
 		label.setText("CHOOSE PORT TO LISTEN TO");
 		port1.setText("P1");
 		port2.setText("P2");
 		port3.setText("P3");
 		port4.setText("P4");
 		begin.setText("Click to Proceed" + "\n" +" to Listen");
+		port1.setOnAction(e -> Server.setport(1));
+		port2.setOnAction(e -> Server.setport(2));
+		port3.setOnAction(e -> Server.setport(3));
+		port4.setOnAction(e -> Server.setport(4));
 		begin.setOnAction(e -> window.setScene(scene2));
 		//scene2 label declarations
 		serverstats.setText("SERVER STATS");
@@ -106,14 +113,14 @@ public class JavaFXTemplate extends Application {
 		label2.setAlignment(Pos.CENTER);
 		label1.getChildren().add(IPAddy);
 		label2.getChildren().add(label);
-		HBox beginbox = new HBox(100);
+		HBox beginbox = new HBox(20);
 		beginbox.setAlignment(Pos.CENTER);
 		beginbox.getChildren().add(begin);
 		//vbox for scene2
 		VBox serverstatus = new VBox();
 		serverstatus.getChildren().addAll(serverstats,numofclients,totalwin,clientdisconnect,clientjoin);
 		serverstatus.setAlignment(Pos.BASELINE_LEFT);
-		HBox cleintstatus = new HBox(10 );
+		HBox cleintstatus = new HBox(20 );
 		cleintstatus.setAlignment(Pos.CENTER_RIGHT);
 		cleintstatus.getChildren().addAll(rootclients);
 		//scene1 get children
