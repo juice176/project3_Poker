@@ -5,18 +5,18 @@ import java.util.Random;
 import java.util.Arrays;
 
 public class PokerInfo implements Serializable {
-    private final ArrayList<Integer> dealersCards;
     //the players hand
-    public Card cards[];
-    private Random shuffler;
-    private boolean fold;
-    private int player_id;
-
-    private int gamesPlay;
-    private int numwin;
-    private int playerAnte;
-    private int playerPair;
-    private int playerWage;
+//    public Card cards[];
+//    private LinkedList<Card> deck;
+//    private Random shuffler;
+//    private boolean fold;
+//    private int player_id;
+//
+//    private int gamesPlay;
+//    private int numwin;
+//    private int playerAnte;
+//    private int playerPair;
+//    private int playerWage;
 
     // the deck of cards
     int[][] deck = new int[4][13];
@@ -35,12 +35,12 @@ public class PokerInfo implements Serializable {
         this.playerWage = 0;
         this.numwin = 0;
         this.gamesPlay = 0;
-       // this.playersCards = new ArrayList<>();
+        this.playersCards = new ArrayList<>();
         this.fold = false;
     }
 
     // Function to calculate the highest rank for the cards that user and the dealer have
-    public static int calculateHighestRank(int [][] hand, int highOrder){
+    public int calculateHighestRank(int [][] hand, int highOrder){
         // determine if the user's cards all have the same suit (elimates possibility of straight flush/flush)
         if(isSameSuit(hand)){
             if(isInOrder(hand)){
@@ -52,13 +52,13 @@ public class PokerInfo implements Serializable {
                 return 2;
             }
         }
-        // determine if the user's cards are all the same (eliminates possibility of three of a kind)
+        // determine if the user's cards are all the same (elimates possiblity of three of a kind)
         else if(isSameCard(hand)){
             System.out.println("You got a three of a kind! Add more to this condition!");
             return 4;
         }
 
-        // determine if the user has cards that are in order by value (eliminates possibly of straight)
+        // determine if the user has cards that are in order by value (eliminates possiblily of straight)
         else if(isInOrder(hand)){
             System.out.println("Congrats, you got a straight! Add more to this condition");
             return 3;
@@ -76,7 +76,7 @@ public class PokerInfo implements Serializable {
 
     // Function to determine if all the cards in the hand are the same suit. Return true if yes, returns false
     // otherwise.
-    private static boolean isSameSuit(int[][] usersCards){
+    private boolean isSameSuit(int[][] usersCards){
         int suitNumber = usersCards[0][0]; // this contains the suit of the first card
         for(int i = 1; i < 3; i++){
             if(usersCards[0][i] != suitNumber){
@@ -88,7 +88,7 @@ public class PokerInfo implements Serializable {
 
     // Function to determine if all the cards in the hand are of the same value.
     // Return true if yes, returns false otherwise
-    private static boolean isSameCard(int[][] usersCards){
+    private boolean isSameCard(int[][] usersCards){
         int card = usersCards[1][0];
         for(int i = 1; i < 3; i++){
             if(usersCards[1][i] != card){
@@ -99,7 +99,7 @@ public class PokerInfo implements Serializable {
     }
 
     // Function to determine if the cards in the hand are in order. Return true if yes, false if no.
-    private static boolean isInOrder(int[][] usersCards){
+    private boolean isInOrder(int [][] usersCards){
         int[] cardValues = new int[3];
         for(int i = 0; i < 3; i++){
             cardValues[i] = usersCards[1][i];
@@ -115,7 +115,7 @@ public class PokerInfo implements Serializable {
     }
 
     // Function to determine if the cards in the hand have a pair. Return true if yes, false if no.
-    private static boolean hasPair(int[][] usersCards){
+    private boolean hasPair(int [][] usersCards){
         for(int i = 0; i < 3; i++){
             int suit = usersCards[0][i];
             for(int k = 0; k < 3; k++){
@@ -133,7 +133,7 @@ public class PokerInfo implements Serializable {
     }
 
     // Function to determine the highest order card
-    private static int highestValueCard(int[][] usersCards){
+    private int highestValueCard(int[][] usersCards){
         int[] cardValues = new int[3];
         for(int i = 0; i < 3; i++){
             cardValues[i] = usersCards[1][i];
