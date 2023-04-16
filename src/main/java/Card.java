@@ -6,6 +6,7 @@ public class Card {
         number = n;
         suite = s;
     }
+
     public String toString(){
         String string = "";
         switch (suite){
