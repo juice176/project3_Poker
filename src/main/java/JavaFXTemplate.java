@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class JavaFXTemplate extends Application {
 	private static ArrayList<ToggleButton> selectNumbers = new ArrayList<>();
 	Stage window;
-	Scene scene1, scene2,currentScene;
+	Scene scene2,currentScene;
 	Server serverConnection;
 	//public static TextArea t2;
 	public static Stage stage;
@@ -70,10 +71,18 @@ public class JavaFXTemplate extends Application {
 		port3.setText("P3");
 		port4.setText("P4");
 		begin.setText("Click to Proceed" + "\n" +" to Listen");
-		port1.setOnAction(e -> Server.setport(1));
-		port2.setOnAction(e -> Server.setport(2));
-		port3.setOnAction(e -> Server.setport(3));
-		port4.setOnAction(e -> Server.setport(4));
+
+//		port1.setOnAction(e -> Server.setport(1));
+//		port2.setOnAction(e -> Server.setport(2));
+//		port3.setOnAction(e -> Server.setport(3));
+//		port4.setOnAction(e -> Server.setport(4));
+		begin.setOnAction(e->{
+			serverConnection = new Server(data ->{
+				Platform.runLater(()->{
+
+				});
+			});
+		});
 		begin.setOnAction(e -> window.setScene(scene2));
 		//scene2 label declarations
 		serverstats.setText("SERVER STATS");
