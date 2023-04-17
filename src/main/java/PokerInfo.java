@@ -198,16 +198,19 @@ public class PokerInfo implements Serializable {
         int[][] usedSuits = new int[1][3];
         int[][] usedNumbers = new int[1][3];
         for(int i = 0; i < 3; i++){
+            // generate random numbers
             int newSuit = (int)(Math.random()) % 4;
-            int newSuit = (int)(Math.random()) % 4;
+            int newNumber = (int)(Math.random()) % 13 + 1;
 
-            for(int k = 0; k < i; k++){
-                if(usedSuits[k] == newSuit && usedNumbers[k] == newCard){
-                    System.out.println("Card already used. Reshuffling");
-                    newSuit = (int)(Math.random()) % 4;
-                    newSuit = (int)(Math.random()) % 4;
-                }
+            hand[0][i] = newSuit;
+            hand[1][i] = newNumber;
+        }
+
+        for(int i = 1; i < 3){
+            if(hand[0][i] == hand[0][i-1] && hand[1][i] == hand[1][i-1]){
+                hand[0][i] = (int)(Math.random()) % 4;
+                hand[1][i] = (int)(Math.random()) % 13 + 1;
             }
         }
-    }
+    } // end of function
 }
