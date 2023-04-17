@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Arrays;
+import java.lang.Math;
 
 public class PokerInfo implements Serializable {
     int[][] deck = new int[4][13];  // the deck of cards
@@ -192,18 +193,13 @@ public class PokerInfo implements Serializable {
         }
     }
 
-    private int updateUserCards(){
-        return 0;
-    }
-    private int updateDealersCards(){
-        return 0;
-    }
-
-    public static int evalHand(ArrayList<Card> hand) {
-        return 0;
-    }
-
-    public static int evalPPWinnings(ArrayList<Card> hand, int bet) {
-        return 0;
+    // Function to update the hand of the user (and send it back to the client
+    private void updateHands(int[][] hand){
+        int[][] usedSuits = new int[1][3];
+        int[][] usedNumbers = new int[1][3];
+        for(int i = 0; i < 3; i++){
+            int newSuit = (int)(Math.random()) % 4;
+            int newCard = (int)(Math.random()) % 14 + 1;
+        }
     }
 }
