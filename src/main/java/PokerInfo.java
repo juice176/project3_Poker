@@ -1,9 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Random;
 import java.util.Arrays;
-import java.lang.Math;
 
 public class PokerInfo implements Serializable {
     int[][] deck = new int[4][13];  // the deck of cards
@@ -26,7 +23,7 @@ public class PokerInfo implements Serializable {
     }
 
     // Function to calculate the highest rank for the cards that user and the dealer have
-    public int calculateHighestRank(int [][] hand, int highOrder){
+    public static int calculateHighestRank(int[][] hand, int highOrder){
         // determine if the user's cards all have the same suit (elimates possibility of straight flush/flush)
         if(isSameSuit(hand)){
             if(isInOrder(hand)){
@@ -62,7 +59,7 @@ public class PokerInfo implements Serializable {
 
     // Function to determine if all the cards in the hand are the same suit. Return true if yes, returns false
     // otherwise.
-    private boolean isSameSuit(int[][] usersCards){
+    private static boolean isSameSuit(int[][] usersCards){
         int suitNumber = usersCards[0][0]; // this contains the suit of the first card
         for(int i = 1; i < 3; i++){
             if(usersCards[0][i] != suitNumber){
@@ -74,7 +71,7 @@ public class PokerInfo implements Serializable {
 
     // Function to determine if all the cards in the hand are of the same value.
     // Return true if yes, returns false otherwise
-    private boolean isSameCard(int[][] usersCards){
+    static boolean isSameCard(int[][] usersCards){
         int card = usersCards[1][0];
         for(int i = 1; i < 3; i++){
             if(usersCards[1][i] != card){
@@ -85,7 +82,7 @@ public class PokerInfo implements Serializable {
     }
 
     // Function to determine if the cards in the hand are in order. Return true if yes, false if no.
-    private boolean isInOrder(int [][] usersCards){
+    static boolean isInOrder(int[][] usersCards){
         int[] cardValues = new int[3];
         for(int i = 0; i < 3; i++){
             cardValues[i] = usersCards[1][i];
@@ -101,7 +98,7 @@ public class PokerInfo implements Serializable {
     }
 
     // Function to determine if the cards in the hand have a pair. Return true if yes, false if no.
-    private boolean hasPair(int [][] usersCards){
+    static boolean hasPair(int[][] usersCards){
         for(int i = 0; i < 3; i++){
             int suit = usersCards[0][i];
             for(int k = 0; k < 3; k++){
@@ -119,7 +116,7 @@ public class PokerInfo implements Serializable {
     }
 
     // Function to determine the highest order card
-    private int highestValueCard(int[][] usersCards){
+    static int highestValueCard(int[][] usersCards){
         int[] cardValues = new int[3];
         for(int i = 0; i < 3; i++){
             cardValues[i] = usersCards[1][i];
@@ -129,27 +126,27 @@ public class PokerInfo implements Serializable {
     }
 
     // Function to compare the dealer's hand and the player's hand
-    public void compareHands(int [][] playersHand, int [][] dealersHand, int playersHighestCard, int dealersHighestCard) {
-        this.playerRanking = calculateHighestRank(playersHand, playersHighestCard);
-        this.dealerRanking = calculateHighestRank(dealersHand, dealersHighestCard);
+    public static String compareHands(int[][] playersHand, int[][] dealersHand, int playersHighestCard, int dealersHighestCard) {
+        int playersHandRanking = calculateHighestRank(playersHand, playersHighestCard);
+        int dealersHandRanking = calculateHighestRank(dealersHand, dealersHighestCard);
 
-        if(this.playerRanking < this.dealerRanking){
+        if(playersHandRanking < dealersHandRanking){
             System.out.println("Sorry! You Lost!");
-            this.hasUserWon = false;
+            return("Sorry! You Lost!");
             // calculate money lost based on the player's bets
         }
-        else if(this.playerRanking > this.dealerRanking){
+        else if(playersHandRanking > dealersHandRanking){
             System.out.println("Congrats, you win!");
-            this.hasUserWon = true;
-            // calculate money won based on user's bets
+            return("Congrats, you win!");
         }
         else{
             System.out.println("Sorry, you tied. No money lost tho!");
-            this.hasUserWon = false;
+            return("Sorry, you tied. No money lost tho!");
         }
     }
 
-    // Funtion to load the deck for calculations, Hearts = index 0, Spades = index 1, Clubs = index 2, Diamonds = index 3
+    // Funtion to load the deck for calculations
+    // Hearts = index 0, Spades = index 1, Clubs = index 2, Diamonds = index 3
     // Aces are considered as card 1
     private void loadDeck(int[][] deck){
         for(int i = 0; i < 4; i++){
@@ -158,7 +155,6 @@ public class PokerInfo implements Serializable {
             }
         }
     }
-
     // Function to determine the winnings that the user gets if they win
     public void determineWinningsCurrent(int wager, int ante, int pairPlus, boolean hasUserWon, boolean hasUserFolded){
         if(hasUserFolded){
@@ -206,11 +202,30 @@ public class PokerInfo implements Serializable {
             hand[1][i] = newNumber;
         }
 
-        for(int i = 1; i < 3){
+        for(int i = 1; i < 3;){
             if(hand[0][i] == hand[0][i-1] && hand[1][i] == hand[1][i-1]){
                 hand[0][i] = (int)(Math.random()) % 4;
                 hand[1][i] = (int)(Math.random()) % 13 + 1;
             }
         }
     } // end of function
+    public int determineWinningsCurrent(){
+        //
+        return 0;
+    }
+
+    private int updateUserCards(){
+        return 0;
+    }
+    private int updateDealersCards(){
+        return 0;
+    }
+
+    public static int evalHand(ArrayList<Card> hand) {
+        return 0;
+    }
+
+    public static int evalPPWinnings(ArrayList<Card> hand, int bet) {
+        return 0;
+    }
 }
